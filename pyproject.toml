@@ -1,0 +1,27 @@
+[project]
+name = "comfyui-ytdl-nodes"
+description = "Custom ComfyUI nodes for downloading, converting, and previewing audio/video from YouTube and 1,000+ other platforms"
+version = "1.0.0"
+license = { text = "MIT" }
+dependencies = [
+    "yt-dlp>=2023.12.30",
+    "ffmpeg-python>=0.2.0",
+]
+requires-python = ">=3.9"
+
+[project.urls]
+Repository = "https://github.com/Saganaki22/ComfyUI-ytdl_nodes"
+Documentation = "https://github.com/Saganaki22/ComfyUI-ytdl_nodes#readme"
+
+[tool.comfy]
+PublisherId = "saganaki22"
+DisplayName = "YTDL Nodes"
+Icon = ""
+
+[[tool.comfy.Nodes]]
+Path = "ytdl_nodes.py"
+NodeNames = [
+    "YTDL URL Validator",
+    "YTDL Downloader", 
+    "YTDL Audio Preview"
+]
