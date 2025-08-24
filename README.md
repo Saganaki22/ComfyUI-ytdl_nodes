@@ -9,6 +9,9 @@
 Custom [ComfyUI](https://github.com/comfyanonymous/ComfyUI) nodes for downloading, converting, and previewing audio/video from YouTube and other supported sites using **[yt-dlp](https://github.com/yt-dlp/yt-dlp)**.  
 Easily fetch high-quality media, auto-convert to your preferred formats, and preview files directly inside ComfyUI.
 
+<img width="1876" height="588" alt="image" src="https://github.com/user-attachments/assets/6eb4aa9f-e67e-4afb-b5e2-c692faaa6f19" />
+
+
 ---
 
 ## ✨ Features
