@@ -111,8 +111,8 @@ In the **YTDL Downloader** node, set **`browser_for_cookies`** → **`firefox`**
 - Chrome uses a secure database, which may fail to extract cookies.
 
 ### **4. Provide a Custom Cookie File**  
-If browser extraction fails, you can manually export cookies:
-- Use a browser extension like [Get cookies.txt](https://chrome.google.com/webstore/detail/get-cookiestxt/).
+If browser extraction fails for chromium / Chrome, you can manually export cookies:
+- Use a browser extension like [Get cookies.txt](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc).
 - Paste the path to your `cookies.txt` file into the **`cookie_file`** input field in the YTDL Downloader node.
 
 Even if you don't set up cookies, the downloader includes **graceful fallbacks**.
