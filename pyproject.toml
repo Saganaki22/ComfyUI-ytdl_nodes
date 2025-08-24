@@ -4,7 +4,7 @@ description = "Custom ComfyUI nodes for downloading, converting, and previewing 
 version = "1.0.0"
 license = { text = "MIT" }
 dependencies = [
-    "yt-dlp>=2023.12.30",
+    "yt-dlp>=2023.7.6",
     "ffmpeg-python>=0.2.0",
 ]
 requires-python = ">=3.9"
@@ -21,7 +21,7 @@ Icon = ""
 [[tool.comfy.Nodes]]
 Path = "ytdl_nodes.py"
 NodeNames = [
-    "YTDL URL Validator",
-    "YTDL Downloader", 
-    "YTDL Audio Preview"
+    "YTDLLinksInput",
+    "YTDLDownloader", 
+    "YTDLPreviewAudio"
 ]
