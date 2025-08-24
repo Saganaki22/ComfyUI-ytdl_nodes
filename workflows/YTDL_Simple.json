@@ -1,80 +1,15 @@
 {
-  "id": "ec044c50-c094-44cc-9c6e-b5318af7509b",
+  "id": "2a7f8c3c-d75e-4a09-9479-e70a2b7df1ad",
   "revision": 0,
-  "last_node_id": 18,
-  "last_link_id": 12,
+  "last_node_id": 4,
+  "last_link_id": 3,
   "nodes": [
     {
-      "id": 1,
-      "type": "YTDLDownloader",
-      "pos": [
-        2642.624755859375,
-        -1774.83203125
-      ],
-      "size": [
-        295.8428649902344,
-        270
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "links",
-          "type": "YTDL_LINKS",
-          "link": 2
-        }
-      ],
-      "outputs": [
-        {
-          "name": "downloaded_files",
-          "type": "STRING",
-          "links": [
-            1
-          ]
-        },
-        {
-          "name": "download_info",
-          "type": "STRING",
-          "links": []
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "YTDLDownloader",
-        "ue_properties": {
-          "version": "7.0.1",
-          "widget_ue_connectable": {
-            "output_folder": true,
-            "audio_only": true,
-            "audio_format": true,
-            "quality": true,
-            "use_cookies": true,
-            "browser_for_cookies": true,
-            "custom_filename": true,
-            "cookie_file": true
-          }
-        }
-      },
-      "widgets_values": [
-        "ytdl/",
-        true,
-        "mp3",
-        "320",
-        "%(title)s.%(ext)s",
-        "chrome",
-        false,
-        "",
-        ""
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 2,
+      "id": 3,
       "type": "YTDLPreviewAudio",
       "pos": [
-        2994.474609375,
-        -1777.80712890625
+        1268.87451171875,
+        74.44580841064453
       ],
       "size": [
         270,
@@ -90,7 +25,7 @@
           "widget": {
             "name": "downloaded_files"
           },
-          "link": 1
+          "link": 3
         }
       ],
       "outputs": [
@@ -98,7 +33,7 @@
           "name": "audio_file",
           "type": "AUDIO",
           "links": [
-            11
+            1
           ]
         },
         {
@@ -118,6 +53,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui-ytdl-nodes",
+        "ver": "1d74dccaae802e0f0c4c8edab90f2c38a95ebf45",
         "Node name for S&R": "YTDLPreviewAudio",
         "ue_properties": {
           "version": "7.0.1",
@@ -135,11 +72,11 @@
       "bgcolor": "#3f5159"
     },
     {
-      "id": 17,
+      "id": 4,
       "type": "PreviewAudio",
       "pos": [
-        3340.831298828125,
-        -1782.4183349609375
+        1562.3204345703125,
+        77.974853515625
       ],
       "size": [
         461.05279541015625,
@@ -152,7 +89,7 @@
         {
           "name": "audio",
           "type": "AUDIO",
-          "link": 11
+          "link": 1
         }
       ],
       "outputs": [],
@@ -172,11 +109,79 @@
       "bgcolor": "#653"
     },
     {
-      "id": 3,
+      "id": 1,
+      "type": "YTDLDownloader",
+      "pos": [
+        971.1664428710938,
+        73.23431396484375
+      ],
+      "size": [
+        274.71875,
+        270
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "links",
+          "type": "YTDL_LINKS",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "downloaded_files",
+          "type": "STRING",
+          "links": [
+            3
+          ]
+        },
+        {
+          "name": "download_info",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-ytdl-nodes",
+        "ver": "1d74dccaae802e0f0c4c8edab90f2c38a95ebf45",
+        "Node name for S&R": "YTDLDownloader",
+        "ue_properties": {
+          "version": "7.0.1",
+          "widget_ue_connectable": {
+            "output_folder": true,
+            "audio_only": true,
+            "audio_format": true,
+            "quality": true,
+            "use_cookies": true,
+            "browser_for_cookies": true,
+            "download_playlist": true,
+            "custom_filename": true,
+            "cookie_file": true
+          }
+        }
+      },
+      "widgets_values": [
+        "output/YTDL/",
+        true,
+        "mp3",
+        "best",
+        true,
+        "chrome",
+        true,
+        "%(title)s.%(ext)s",
+        ""
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 2,
       "type": "YTDLLinksInput",
       "pos": [
-        2173.544677734375,
-        -1780.36328125
+        545.9534301757812,
+        76.93657684326172
       ],
       "size": [
         400,
@@ -196,6 +201,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui-ytdl-nodes",
+        "ver": "1d74dccaae802e0f0c4c8edab90f2c38a95ebf45",
         "Node name for S&R": "YTDLLinksInput",
         "ue_properties": {
           "version": "7.0.1",
@@ -214,27 +221,27 @@
   "links": [
     [
       1,
-      1,
+      3,
       0,
-      2,
+      4,
       0,
-      "STRING"
+      "AUDIO"
     ],
     [
       2,
-      3,
+      2,
       0,
       1,
       0,
       "YTDL_LINKS"
     ],
     [
-      11,
-      2,
+      3,
+      1,
       0,
-      17,
+      3,
       0,
-      "AUDIO"
+      "STRING"
     ]
   ],
   "groups": [],
@@ -242,10 +249,10 @@
   "extra": {
     "ue_links": [],
     "ds": {
-      "scale": 0.9849732675808722,
+      "scale": 1.015255979947717,
       "offset": [
-        -1987.2804121194263,
-        2105.4493809181845
+        -141.6415808845261,
+        111.00043198118885
       ]
     },
     "links_added_by_ue": [],
