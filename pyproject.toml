@@ -16,7 +16,7 @@ Documentation = "https://github.com/Saganaki22/ComfyUI-ytdl_nodes#readme"
 [tool.comfy]
 PublisherId = "saganaki22"
 DisplayName = "YTDL Nodes"
-Icon = ""
+Icon = "https://raw.githubusercontent.com/Saganaki22/saganaki22.github.io/refs/heads/main/img/avatar.jpg"
 
 [[tool.comfy.Nodes]]
 Path = "ytdl_nodes.py"
