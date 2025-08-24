@@ -4,7 +4,7 @@ import subprocess
 import sys
 from typing import List, Tuple, Optional
 
-# yt-dlp should be installed via requirements.txt in __init__.py
+
 def ensure_yt_dlp():
     try:
         import yt_dlp
@@ -62,7 +62,7 @@ class YTDLLinksInput:
         # Split by lines and filter out empty lines
         link_list = [link.strip() for link in links.split('\n') if link.strip()]
         
-        # Validate links (basic check)
+        # Validate links 
         valid_links = []
         for link in link_list:
             if link.startswith(('http://', 'https://', 'www.')):
@@ -127,43 +127,43 @@ class YTDLDownloader:
                 print("  Linux:   sudo apt install ffmpeg")
                 print("  Or download from: https://ffmpeg.org/download.html")
                 print("=" * 60)
-                # Try to continue anyway - yt-dlp might have fallbacks
+                
             else:
-                install_ffmpeg_python()  # Install Python wrapper for better integration
+                install_ffmpeg_python()  
         
-        # FIXED: Proper output folder handling
-        # Create output folder path - ensure it's always relative to ComfyUI root directory
+        
+        
         if not output_folder or output_folder.strip() == "":
             output_folder = "output/YTDL/"
         
-        # Remove any trailing slashes and normalize
+        
         output_folder = output_folder.rstrip('/\\')
         
         if not os.path.isabs(output_folder):
-            # Make it relative to ComfyUI root directory
+            
             comfyui_root = os.getcwd()
             abs_output_folder = os.path.join(comfyui_root, output_folder)
         else:
             abs_output_folder = output_folder
         
-        # Create the directory with proper permissions
+        
         os.makedirs(abs_output_folder, exist_ok=True)
         print(f"📁 Saving files to: {abs_output_folder}")
         
-        # FIXED: Ensure filename template doesn't conflict with folder path
+        
         if not custom_filename or custom_filename.strip() == "":
             custom_filename = "%(title)s.%(ext)s"
         
-        # Clean the filename template to prevent path issues
+        
         clean_filename = custom_filename.replace('/', '_').replace('\\', '_')
         full_output_template = os.path.join(abs_output_folder, clean_filename)
         
         downloaded_files = []
         download_info = []
         
-        # Configure yt-dlp options
+        
         ydl_opts = {
-            'outtmpl': full_output_template,  # FIXED: Use full absolute path
+            'outtmpl': full_output_template,  
             'noplaylist': not download_playlist,
         }
         
@@ -172,22 +172,22 @@ class YTDLDownloader:
         else:
             print("📋 Playlist mode: DISABLED - Will download only single videos from playlist URLs")
         
-        # Add cookie support to bypass bot detection
+        
         if use_cookies:
             if cookie_file and os.path.exists(cookie_file):
                 # Use custom cookie file
                 ydl_opts['cookiefile'] = cookie_file
                 print(f"Using custom cookie file: {cookie_file}")
             elif browser_for_cookies != "none":
-                # Extract cookies from browser with fallbacks
+                
                 try:
                     ydl_opts['cookiesfrombrowser'] = (browser_for_cookies,)
                     print(f"Attempting to extract cookies from {browser_for_cookies}")
                     
-                    # Test cookie extraction first
+                    
                     test_ydl = yt_dlp.YoutubeDL({'quiet': True, 'cookiesfrombrowser': (browser_for_cookies,)})
                     try:
-                        # Quick test - this will fail fast if cookies don't work
+                        
                         test_ydl.cookiejar
                         print("✅ Cookie extraction successful")
                     except Exception as cookie_error:
@@ -223,7 +223,7 @@ class YTDLDownloader:
             elif quality == "worst":
                 ydl_opts['format'] = 'worstaudio/worst'
             else:
-                # Specific bitrate
+                
                 ydl_opts['format'] = f'bestaudio[abr<={quality}]/bestaudio/best'
             
             ydl_opts['postprocessors'] = [{
@@ -239,7 +239,7 @@ class YTDLDownloader:
             else:
                 ydl_opts['format'] = f'best[height<={quality}]/best'
         
-        # Download each link with ComfyUI-style progress
+        
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             total_links = len(links)
             
@@ -250,30 +250,30 @@ class YTDLDownloader:
                     print(f"🔗 URL: {link}")
                     print(f"{'='*60}")
                     
-                    # Get info first to understand what we're downloading
+                    
                     print("📊 Extracting video information...")
                     info = ydl.extract_info(link, download=False)
                     
                     if 'entries' in info:
-                        # This is a playlist
+                        
                         entries = list(info['entries'])
                         total_videos = len(entries)
                         if download_playlist:
                             print(f"📋 Found playlist with {total_videos} videos")
                         else:
                             print(f"📋 Found playlist with {total_videos} videos (downloading only first video)")
-                            entries = entries[:1]  # Only take first video
+                            entries = entries[:1]  
                             total_videos = 1
                     else:
-                        # Single video
+                        
                         entries = [info]
                         total_videos = 1
                         print("🎵 Single video detected")
                     
-                    # Download with progress tracking
+                    
                     print(f"\n🚀 Starting download of {total_videos} video(s)...")
                     
-                    # Custom progress hook for ComfyUI-style output
+                    
                     def progress_hook(d):
                         if d['status'] == 'downloading':
                             if 'total_bytes' in d or 'total_bytes_estimate' in d:
@@ -286,7 +286,7 @@ class YTDLDownloader:
                                     filename = d.get('filename', 'Unknown')
                                     basename = os.path.basename(filename) if filename else 'Unknown'
                                     
-                                    # ComfyUI style progress bar
+                                    
                                     bar_length = 40
                                     filled_length = int(bar_length * percent / 100)
                                     bar = '█' * filled_length + '▒' * (bar_length - filled_length)
@@ -295,31 +295,31 @@ class YTDLDownloader:
                         elif d['status'] == 'finished':
                             print(f"\n✅ Completed: {os.path.basename(d.get('filename', 'Unknown'))}")
                     
-                    # Add progress hook to ydl_opts
+                    
                     ydl_opts['progress_hooks'] = [progress_hook]
                     
-                    # Recreate YoutubeDL with progress hook
+                    
                     with yt_dlp.YoutubeDL(ydl_opts) as ydl_with_progress:
                         for video_idx, entry in enumerate(entries):
                             try:
                                 if total_videos > 1:
                                     print(f"\n🎹 Video {video_idx + 1}/{total_videos}: {entry.get('title', 'Unknown')}")
                                 
-                                # Download this specific video
+                                
                                 ydl_with_progress.download([entry['webpage_url']])
                                 
-                                # FIXED: Better file detection after download
+                                
                                 expected_filename = ydl_with_progress.prepare_filename(entry)
                                 if audio_only:
-                                    # Change extension to the audio format
+                                    
                                     base_name = os.path.splitext(expected_filename)[0]
                                     expected_filename = f"{base_name}.{audio_format}"
                                 
-                                # Look for the actual downloaded file (sometimes names differ)
+                                
                                 if os.path.exists(expected_filename):
                                     actual_file = expected_filename
                                 else:
-                                    # Search for files in the output directory that might be our file
+                                    
                                     base_title = entry.get('title', 'Unknown')[:50]  # Truncate for search
                                     potential_files = []
                                     for file in os.listdir(abs_output_folder):
@@ -327,7 +327,7 @@ class YTDLDownloader:
                                         if os.path.isfile(file_path) and any(ext in file.lower() for ext in ['.mp3', '.wav', '.m4a', '.flac', '.ogg', '.mp4', '.mkv']):
                                             potential_files.append(file_path)
                                     
-                                    # Use the most recent file as our download
+                                    
                                     if potential_files:
                                         actual_file = max(potential_files, key=os.path.getmtime)
                                     else:
@@ -369,7 +369,7 @@ class YTDLDownloader:
             print(f"🎉 Download completed! {len(downloaded_files)} files downloaded.")
             print(f"{'='*60}")
         
-        # Return paths as newline-separated string and info as JSON
+        
         files_output = '\n'.join(downloaded_files) if downloaded_files else ""
         info_output = json.dumps(download_info, indent=2)
         
@@ -404,14 +404,14 @@ class YTDLPreviewAudio:
     def prepare_audio_preview(self, downloaded_files: str, file_index: int = 0):
         import json
         
-        # FIXED: Handle empty/failed downloads gracefully
+        
         if not downloaded_files or downloaded_files.strip() == "":
             print("⚠️ No downloaded files available")
-            # Return empty audio data that won't crash downstream nodes
+            
             empty_info = {"error": "No files available", "total_files": 0}
             return (None, "", json.dumps(empty_info), 0)
         
-        # Split file paths
+        
         file_paths = [path.strip() for path in downloaded_files.split('\n') if path.strip()]
         
         if not file_paths:
@@ -419,7 +419,7 @@ class YTDLPreviewAudio:
             empty_info = {"error": "No valid file paths", "total_files": 0}
             return (None, "", json.dumps(empty_info), 0)
         
-        # Get the file at the specified index
+        
         if file_index >= len(file_paths):
             file_index = 0
         
@@ -430,18 +430,18 @@ class YTDLPreviewAudio:
             print(f"❌ File not found: {current_file}")
             return (None, "", json.dumps(error_info), len(file_paths))
         
-        # FIXED: Load audio data using torchaudio (ComfyUI's expected format)
+        
         try:
             import torch
             import torchaudio
             
             waveform, sample_rate = torchaudio.load(current_file)
-            # Convert to ComfyUI's expected audio format
+            
             audio_data = {"waveform": waveform.unsqueeze(0), "sample_rate": sample_rate}
         except Exception as e:
             print(f"❌ Could not load audio file: {e}")
             try:
-                # Fallback: try to convert using ffmpeg first
+                
                 import tempfile
                 temp_wav = tempfile.mktemp(suffix='.wav')
                 subprocess.run([
@@ -458,11 +458,11 @@ class YTDLPreviewAudio:
                 error_info = {"error": f"Could not load audio: {str(e)}", "total_files": len(file_paths)}
                 return (None, "", json.dumps(error_info), len(file_paths))
         
-        # Get file info
+        
         file_size = os.path.getsize(current_file)
         file_name = os.path.basename(current_file)
         
-        # Try to get audio duration
+        
         try:
             duration = float(waveform.shape[-1]) / sample_rate
         except:
@@ -480,10 +480,10 @@ class YTDLPreviewAudio:
             "all_files": [os.path.basename(f) for f in file_paths]
         }
         
-        # Create the audio player HTML (this displays in ComfyUI)
+        
         self.create_audio_player_display(current_file, file_info)
         
-        # Return actual audio data for LoadAudio compatibility
+        
         return (audio_data, current_file, json.dumps(file_info, indent=2), len(file_paths))
     
     def create_audio_player_display(self, current_file: str, file_info: dict):
@@ -515,7 +515,7 @@ class YTDLPreviewAudio:
         print(f"✅ Ready to play: {file_info['name']}")
         print("=" * 60)
 
-# Node mappings for ComfyUI
+
 NODE_CLASS_MAPPINGS = {
     "YTDLLinksInput": YTDLLinksInput,
     "YTDLDownloader": YTDLDownloader,
