@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-ytdl-nodes"
 description = "Custom ComfyUI nodes for downloading, converting, and previewing audio/video from YouTube and 1,000+ other platforms"
-version = "1.0.5"  
+version = "1.0.6"  
 license = { file = "LICENSE" }  # Changed from text to file
 dependencies = [
     "yt-dlp>=2023.7.6",
