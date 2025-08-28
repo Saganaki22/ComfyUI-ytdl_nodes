@@ -15,7 +15,7 @@ Repository = "https://github.com/Saganaki22/ComfyUI-ytdl_nodes"
 Documentation = "https://github.com/Saganaki22/ComfyUI-ytdl_nodes#readme"
 
 [tool.comfy]
-PublisherId = "saganaki22"
+PublisherId = "drbaph"
 DisplayName = "YTDL Nodes"
 Icon = "https://avatars.githubusercontent.com/u/84208527"
 
