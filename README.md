@@ -17,7 +17,7 @@ Easily fetch high-quality media, auto-convert to your preferred formats, and pre
 
 ## 📝 Updates
 
-### Version 1.0.4 - Latest Release
+### Version 1.0.6 - Latest Release
 🎉 **Major Update:** This version introduces the new **YTDLPreview** node with enhanced media preview capabilities and significantly improved functionality.
 
 #### **🎬 New Main Preview Node:**
