@@ -1,6 +1,3 @@
-# 🚧 WIP 
-
----
 
 # 🎧 ComfyUI YTDL Nodes
 
